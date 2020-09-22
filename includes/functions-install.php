@@ -36,11 +36,11 @@ function yourls_get_database_version() {
 }
 
 /**
- * Check if PHP > 5.3
+ * Check if PHP > 5.6
  *
  */
 function yourls_check_php_version() {
-    return(defined('PHP_VERSION_ID') && PHP_VERSION_ID > 50300);
+    return version_compare( PHP_VERSION, '5.6.0', '>=' );
 }
 
 /**
@@ -70,7 +70,7 @@ function yourls_is_iis() {
  *
  */
 function yourls_create_htaccess() {
-	$host = parse_url( YOURLS_SITE );
+	$host = parse_url( yourls_get_yourls_site() );
 	$path = ( isset( $host['path'] ) ? $host['path'] : '' );
 
 	if ( yourls_is_iis() ) {

@@ -30,41 +30,43 @@ use MaxMind\Db\Reader\InvalidDatabaseException;
  * SPL {@link \InvalidArgumentException} will be thrown. If the database is
  * corrupt or invalid, a {@link \MaxMind\Db\Reader\InvalidDatabaseException}
  * will be thrown.
- *
  */
 class Reader implements ProviderInterface
 {
     private $dbReader;
+    private $dbType;
     private $locales;
 
     /**
      * Constructor.
      *
-     * @param string $filename The path to the GeoIP2 database file.
-     * @param array $locales  List of locale codes to use in name property
-     * from most preferred to least preferred.
+     * @param string $filename the path to the GeoIP2 database file
+     * @param array  $locales  list of locale codes to use in name property
+     *                         from most preferred to least preferred
+     *
      * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *          is corrupt or invalid
+     *                                                     is corrupt or invalid
      */
     public function __construct(
         $filename,
-        $locales = array('en')
+        $locales = ['en']
     ) {
         $this->dbReader = new DbReader($filename);
+        $this->dbType = $this->dbReader->metadata()->databaseType;
         $this->locales = $locales;
     }
 
     /**
      * This method returns a GeoIP2 City model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\City
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function city($ipAddress)
     {
@@ -74,14 +76,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoIP2 Country model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\Country
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function country($ipAddress)
     {
@@ -91,14 +93,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoIP2 Anonymous IP model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\AnonymousIp
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function anonymousIp($ipAddress)
     {
@@ -112,14 +114,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoLite2 ASN model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\Asn
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function asn($ipAddress)
     {
@@ -133,14 +135,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoIP2 Connection Type model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\ConnectionType
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function connectionType($ipAddress)
     {
@@ -154,14 +156,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoIP2 Domain model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\Domain
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function domain($ipAddress)
     {
@@ -175,14 +177,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoIP2 Enterprise model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\Enterprise
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function enterprise($ipAddress)
     {
@@ -192,14 +194,14 @@ class Reader implements ProviderInterface
     /**
      * This method returns a GeoIP2 ISP model.
      *
-     * @param string $ipAddress IPv4 or IPv6 address as a string.
+     * @param string $ipAddress an IPv4 or IPv6 address as a string
+     *
+     * @throws \GeoIp2\Exception\AddressNotFoundException  if the address is
+     *                                                     not in the database
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
+     *                                                     is corrupt or invalid
      *
      * @return \GeoIp2\Model\Isp
-     *
-     * @throws \GeoIp2\Exception\AddressNotFoundException if the address is
-     *         not in the database.
-     * @throws \MaxMind\Db\Reader\InvalidDatabaseException if the database
-     *         is corrupt or invalid
      */
     public function isp($ipAddress)
     {
@@ -212,40 +214,42 @@ class Reader implements ProviderInterface
 
     private function modelFor($class, $type, $ipAddress)
     {
-        $record = $this->getRecord($class, $type, $ipAddress);
+        list($record, $prefixLen) = $this->getRecord($class, $type, $ipAddress);
 
         $record['traits']['ip_address'] = $ipAddress;
-        $class = "GeoIp2\\Model\\" . $class;
+        $record['traits']['prefix_len'] = $prefixLen;
+
+        $class = 'GeoIp2\\Model\\' . $class;
 
         return new $class($record, $this->locales);
     }
 
     private function flatModelFor($class, $type, $ipAddress)
     {
-        $record = $this->getRecord($class, $type, $ipAddress);
+        list($record, $prefixLen) = $this->getRecord($class, $type, $ipAddress);
 
         $record['ip_address'] = $ipAddress;
-        $class = "GeoIp2\\Model\\" . $class;
+        $record['prefix_len'] = $prefixLen;
+        $class = 'GeoIp2\\Model\\' . $class;
 
         return new $class($record);
     }
 
     private function getRecord($class, $type, $ipAddress)
     {
-        if (strpos($this->metadata()->databaseType, $type) === false) {
+        if (strpos($this->dbType, $type) === false) {
             $method = lcfirst($class);
             throw new \BadMethodCallException(
-                "The $method method cannot be used to open a "
-                . $this->metadata()->databaseType . " database"
+                "The $method method cannot be used to open a {$this->dbType} database"
             );
         }
-        $record = $this->dbReader->get($ipAddress);
+        list($record, $prefixLen) = $this->dbReader->getWithPrefixLen($ipAddress);
         if ($record === null) {
             throw new AddressNotFoundException(
                 "The address $ipAddress is not in the database."
             );
         }
-        if (!is_array($record)) {
+        if (!\is_array($record)) {
             // This can happen on corrupt databases. Generally,
             // MaxMind\Db\Reader will throw a
             // MaxMind\Db\Reader\InvalidDatabaseException, but occasionally
@@ -255,16 +259,18 @@ class Reader implements ProviderInterface
             // exceptions go unnoticed.
             throw new InvalidDatabaseException(
                 "Expected an array when looking up $ipAddress but received: "
-                . gettype($record)
+                . \gettype($record)
             );
         }
-        return $record;
+
+        return [$record, $prefixLen];
     }
 
     /**
-     * @throws \InvalidArgumentException if arguments are passed to the method.
-     * @throws \BadMethodCallException if the database has been closed.
-     * @return \MaxMind\Db\Reader\Metadata object for the database.
+     * @throws \InvalidArgumentException if arguments are passed to the method
+     * @throws \BadMethodCallException   if the database has been closed
+     *
+     * @return \MaxMind\Db\Reader\Metadata object for the database
      */
     public function metadata()
     {
